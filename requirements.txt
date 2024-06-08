@@ -1,0 +1,11 @@
+openai
+redis
+requests
+python-dotenv
+python-telegram-bot
+PyYAML
+pydub
+ffmpeg
+opencv
+pytesseract
+

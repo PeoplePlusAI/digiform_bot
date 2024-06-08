@@ -1,0 +1,12 @@
+ops/.env
+.DS_Store
+notebooks
+# FILEPATH:
+# BEGIN: python-gitignore
+*.pyc
+__pycache__/
+venv/
+*.env
+.vscode/
+.DS_store
+# END: python-gitignore
