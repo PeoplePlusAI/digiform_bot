@@ -104,11 +104,9 @@ async def preferred_language_callback(update: Update, context: CallbackContext):
     
     text_message = ""
     if lang == "en":
-        text_message = "Hi, My name is Digiform and I'll help you fill eKYC form. \n To get started, please upload your Aadhaar or PAN card."
+        text_message = "Hi, My name is Digiform and I'll help you fill eKYC form. \n To get started, please upload your Aadhaar" # or PAN card.
     elif lang == "hi":
-        text_message = "नमस्ते, मेरा नाम डिजीफॉर्म है और मैं आपको फॉर्म भरने में मदद करूंगा। आरंभ करने के लिए, कृपया अपना आधार या पैन कार्ड अपलोड करें।"
-    # elif lang == "mr":
-    #     text_message = "तुम्ही मराठीची निवड केली आहे. \n कृपया तुमचे तपशील शेअर करा। तुमचा 10 अंकी मोबाईल नंबर काय आहे?"
+        text_message = "नमस्ते, मेरा नाम डिजीफॉर्म है और मैं आपको फॉर्म भरने में मदद करूंगा। आरंभ करने के लिए, कृपया अपना आधार अपलोड करें।" # या पैन कार्ड 
         
     set_redis('lang', lang)
     
