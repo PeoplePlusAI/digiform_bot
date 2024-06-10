@@ -64,7 +64,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
     await context.bot.send_message(
         chat_id=update.effective_chat.id, 
-        text="Hi, My name is Digiform and I'll help you fill eKYC form. To get started, please upload your Aadhaar card."
+        text="Welcome to KYC Form Application. I am DigiForm. \n I will help you complete your KYC Form."
         # func to take consent from user to be added later
     )
     await relay_handler(update, context)
@@ -104,9 +104,9 @@ async def preferred_language_callback(update: Update, context: CallbackContext):
     
     text_message = ""
     if lang == "en":
-        text_message = "Hi, My name is Digiform and I'll help you fill eKYC form. \n To get started, please upload your Aadhaar" # or PAN card.
+        text_message = "To get started, please provide your mobile number and email." # To get started, please upload your Aadhaar card.
     elif lang == "hi":
-        text_message = "नमस्ते, मेरा नाम डिजीफॉर्म है और मैं आपको फॉर्म भरने में मदद करूंगा। आरंभ करने के लिए, कृपया अपना आधार अपलोड करें।" # या पैन कार्ड 
+        text_message = "नमस्ते, आरंभ करने के लिए कृपया अपना मोबाइल नंबर और ईमेल प्रदान करें।"
         
     set_redis('lang', lang)
     
@@ -116,6 +116,9 @@ async def preferred_language_callback(update: Update, context: CallbackContext):
     )
 
 async def response_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    upload_message = "please upload your Aadhaar card and PAN card"
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=upload_message)
+    
     await query_handler(update, context)
 
 # def check_change_language_query(text):
@@ -349,10 +352,10 @@ if __name__ == '__main__':
     application = ApplicationBuilder().token(
         token
     ).read_timeout(30).write_timeout(30).build()
-    #start_handler = CommandHandler('start', start)
+    start_handler = CommandHandler('start', start)
     language_handler_ = CommandHandler('set_language', language_handler)
     chosen_language = CallbackQueryHandler(preferred_language_callback, pattern='[1-3]')
-    #application.add_handler(start_handler)
+    application.add_handler(start_handler)
     application.add_handler(language_handler_)
     application.add_handler(chosen_language)
     application.add_handler(

@@ -137,13 +137,13 @@ def digiform(parameters, tool_id, thread_id, run_id):
     print(f"run id is {run_id}")
     print(f"parameters are {parameters}")
     
-    other_details = {"nationality": "Indian"}
-    parameters.update(other_details)
+    # other_details = {"nationality": "Indian"}
+    # parameters.update(other_details)
     
     tool_output_array = [
         {
             "tool_call_id": tool_id,
-            "output": json.dumps(parameters) # check this once
+            "output": 
         }
     ]
     run = client.beta.threads.runs.submit_tool_outputs(
@@ -207,50 +207,6 @@ def process_creating_profile_action(parameters, tool_id, thread_id, run_id):
         }
         return error, history
     
-def process_save_mini_scr_question(parameters, tool_id, thread_id, run_id):
-    """
-    save the responses of mini screening questions 
-
-    """
-    '''
-    
-    complaint = search_complaint(parameters)
-    if complaint:
-        application_status = complaint.get(
-            "ServiceWrappers", []
-        )[0].get(
-            "service", {}
-        ).get("applicationStatus")
-        tool_output_array = [
-            {
-                "tool_call_id": tool_id,
-                "output": application_status
-            }
-        ]
-        run = client.beta.threads.runs.submit_tool_outputs(
-            thread_id=thread_id,
-            run_id=run_id,
-            tool_outputs=tool_output_array
-        )
-        run_id, status = get_run_status(client, thread_id, run.id)
-
-        if status == "completed":
-            assistant_message = get_assistant_message(client, thread_id)
-        else:
-            assistant_message = "something went wrong please check the openAI API"
-
-        print(f"assistant message is {assistant_message}")
-
-        history = {
-            "thread_id": thread_id,
-            "run_id": run_id,
-            "status": status,
-        }
-        return assistant_message, history
-    else:
-        return "Complaint not found", history
-    '''
-
 def compose_function_call_params(func_name, arguments):
     """
     Compose function call parameters based on the args
@@ -263,7 +219,11 @@ def compose_function_call_params(func_name, arguments):
     #         }
     # )
     print(f"function name is {func_name}")
-    parameters = json.loads(arguments)
+    try:
+        parameters = json.loads(arguments)
+    except:
+        if isinstance(parameters, dict):
+            print("Already a JSON")
     # parameters["auth_token"] = auth_token
     # parameters["username"] = username
     return parameters

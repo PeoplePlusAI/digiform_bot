@@ -96,7 +96,7 @@ get_user_information = {
             "panCardNumber": {
                 "type": "string",
                 "description": "PAN card number"
-            },
+            }
             # "mailingAddressId": {
             #     "type": "string",
             #     "description": "Mailing address ID of the person"
@@ -124,7 +124,7 @@ get_user_information = {
         },
             "required": [  
                 "firstName", "lastName", "fatherName", "gender", "maritalStatus",
-                "dob", "mobile", "email", "permanentAddressId", "aadharCardNumber"
+                "dob", "mobile", "email", "permanentAddressId", "aadharCardNumber", "panCardNumber"
             ]
     }
     #     "required": [
